@@ -45,9 +45,10 @@ protected:
   };
 
   const QRect settings_btn = QRect(50, 35, 200, 117);
-  const QColor good_color = QColor(255, 255, 255);
-  const QColor warning_color = QColor(218, 202, 37);
-  const QColor danger_color = QColor(201, 34, 49);
+  //const QColor good_color = QColor(255, 255, 255); // White
+  const QColor good_color = QColor(0, 175, 0); // Green
+  const QColor warning_color = QColor(218, 202, 37); // Amber
+  const QColor danger_color = QColor(201, 34, 49); // Red
 
   Params params;
   ItemStatus connect_status, panda_status, temp_status, fanSpeed_status;
