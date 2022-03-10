@@ -61,14 +61,26 @@ void Sidebar::updateState(const UIState &s) {
   }
   setProperty("connectStatus", QVariant::fromValue(connectStatus));
 
-  ItemStatus tempStatus = {"TEMP\nHIGH", danger_color};
+  auto fanSpeedRPM = deviceState.getFanSpeedPercentDesired();
+  auto fanSpeedPercentDesired = deviceState.getFanSpeedPercentDesired();
+  QString fanSpeedStr = QString::fromUtf8((util::string_format("FAN\n%drpm", fanSpeedRPM).c_str()));
+
+  ItemStatus fanSpeed = {fanSpeedStr, good_color};
+  if (fanSpeedPercentDesired > 80) {
+    fanSpeed = {fanSpeedStr, danger_color};
+  } else if (fanSpeedPercentDesired > 50) {
+    fanSpeed = {fanSpeedStr, warning_color};
+  }
+  setProperty("fanSpeed", QVariant::fromValue(fanSpeed));
+
+ QColor tempColor = danger_color;
   auto ts = deviceState.getThermalStatus();
   if (ts == cereal::DeviceState::ThermalStatus::GREEN) {
-    tempStatus = {"TEMP\nGOOD", good_color};
+    tempColor = good_color;
   } else if (ts == cereal::DeviceState::ThermalStatus::YELLOW) {
-    tempStatus = {"TEMP\nOK", warning_color};
+    tempColor = warning_color;
   }
-  setProperty("tempStatus", QVariant::fromValue(tempStatus));
+  setProperty("tempStatus", QVariant::fromValue(ItemStatus{QString("TEMP\n%1C").arg((int)deviceState.getAmbientTempC()), tempColor}));
 
   ItemStatus pandaStatus = {"VEHICLE\nONLINE", good_color};
   if (s.scene.pandaType == cereal::PandaState::PandaType::UNKNOWN) {
@@ -90,7 +102,7 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   p.setOpacity(0.65);
   p.drawImage(settings_btn.x(), settings_btn.y(), settings_img);
   p.setOpacity(1.0);
-  p.drawImage(60, 1080 - 180 - 40, home_img);
+  //p.drawImage(60, 1080 - 180 - 40, home_img);
 
   // network
   int x = 58;
@@ -110,4 +122,5 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   drawMetric(p, temp_status.first, temp_status.second, 338);
   drawMetric(p, panda_status.first, panda_status.second, 496);
   drawMetric(p, connect_status.first, connect_status.second, 654);
+  drawMetric(p, fanSpeed_status.first, fanSpeed_status.second, 812);
 }
