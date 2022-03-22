@@ -1,4 +1,4 @@
-#include "selfdrive/ui/qt/widgets/sunnypilot.h"
+#include "selfdrive/ui/qt/widgets/rhaynypilot.h"
 
 #include <stdlib.h>
 #include <stdio.h>
