@@ -11,7 +11,7 @@
 
 
 #include "selfdrive/ui/qt/widgets/controls.h"
-#include "selfdrive/ui/qt/widgets/sunnypilot.h"
+#include "selfdrive/ui/qt/widgets/rhaynypilot.h"
 
 // ********** settings window + top-level panels **********
 class SettingsWindow : public QFrame {
@@ -80,7 +80,7 @@ private:
   QFileSystemWatcher *fs_watch;
 };
 
-class SunnypilotPanel : public QWidget {
+class RhaynypilotPanel : public QWidget {
   Q_OBJECT
 
 private:
@@ -91,5 +91,5 @@ private:
   QWidget* home_widget;
 
 public:
-  explicit SunnypilotPanel(QWidget *parent = nullptr);
+  explicit RhaynypilotPanel(QWidget *parent = nullptr);
 };

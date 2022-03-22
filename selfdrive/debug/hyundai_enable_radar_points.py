@@ -38,6 +38,11 @@ SUPPORTED_FW_VERSIONS = {
     "default_config": b"\x00\x00\x00\x01\x00\x00",
     "tracks_enabled": b"\x00\x00\x00\x01\x00\x01",
   },
+  # 2021 PALISADE
+  b'LX2_ SCC FHCUP      1.00 1.05 99110-S8100 \x06\x17\t\x08    ': {
+    "default_config": b"\x00\x00\x00\x01\x00\x00",
+    "tracks_enabled": b"\x00\x00\x00\x01\x00\x01",
+  },
   # 2020 SANTA FE
   b"TM__ SCC F-CUP      1.00 1.03 99110-S2000\x19\x050\x13'    ": {
     "default_config": b"\x00\x00\x00\x01\x00\x00",

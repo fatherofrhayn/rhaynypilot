@@ -102,7 +102,7 @@ class GpxD():
       filename = self.started_time.replace(':','-')
       str = ''
       str += "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n"
-      str += "<gpx version=\"1.1\" creator=\"sunnypilot https://github.com/sunnypilot/openpilot\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
+      str += "<gpx version=\"1.1\" creator=\"rhaynypilot https://github.com/fatherofrhayn/openpilot\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
       str += "<trk>\n"
       str += "  <name>" + self.started_time + "</name>"
       str += "  <trkseg>\n"

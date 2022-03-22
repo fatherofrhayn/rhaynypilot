@@ -21,7 +21,7 @@
 #include "selfdrive/ui/qt/widgets/input.h"
 #include "selfdrive/ui/qt/widgets/scrollview.h"
 #include "selfdrive/ui/qt/widgets/ssh_keys.h"
-#include "selfdrive/ui/qt/widgets/sunnypilot.h"
+#include "selfdrive/ui/qt/widgets/rhaynypilot.h"
 #include "selfdrive/ui/qt/widgets/toggle.h"
 #include "selfdrive/ui/ui.h"
 #include "selfdrive/ui/qt/util.h"
@@ -364,7 +364,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
     {"Network", network_panel(this)},
     {"Toggles", new TogglesPanel(this)},
     {"Software", new SoftwarePanel(this)},
-    {"sunnypilot", new SunnypilotPanel(this)},
+    {"rhaynypilot", new RhaynypilotPanel(this)},
   };
 
 #ifdef ENABLE_MAPS
@@ -438,7 +438,7 @@ void SettingsWindow::hideEvent(QHideEvent *event) {
 #endif
 }
 
-SunnypilotPanel::SunnypilotPanel(QWidget* parent) : QWidget(parent) {
+RhaynypilotPanel::SunnypilotPanel(QWidget* parent) : QWidget(parent) {
   main_layout = new QStackedLayout(this);
   home = new QWidget(this);
   QVBoxLayout* fcr_layout = new QVBoxLayout(home);
