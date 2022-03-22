@@ -1,39 +1,29 @@
 Table of Contents
 =======================
 
-* [Join our Discord](#-join-our-discord-)
 * [Read Before Installing](#-read-before-installing-)
 * [Highlight Features](#-highlight-features)
 * [Driving Enhancement](#-driving-enhancement)
-* [Branch Definitions](#-branch-definitions)
-* [Recommended Branches](#-recommended-branches)
-* [Installation](#-installation)
 * [How-Tos](#-How-Tos-)
-* [Donate](#-donate-)
-* [Pull Requests](#-Pull-Requests-)
 * [Special Thanks](#-special-thanks)
 * [Licensing](#licensing)
 
 ---
 
-💭 Join our Discord 💭
----
-
-Join sunnyhaibin's openpilot server!
-* https://discord.gg/wRW3meAgtx
 
 🚨 Read Before Installing 🚨
 ---
 
-It is recommended to read this entire page before proceeding. This will ensure that you are selecting the right branch for your car to have the best driving experience.
 
-This fork is recommended to be used for Hyundai/Kia/Genesis (**HKG**), Honda, Toyota, and Subaru cars. It is a fork of [comma.ai's openpilot](https://github.com/commaai/openpilot). By installing this software, you accept all responsibility for anything that might occur while you use it. All contributors to this fork are not liable. <ins>**Use at your own risk.**</ins>
+DONT USE THIS - THIS IS JUST FOR PERSONAL USE - IM 13 YEARS OLD!!
+
+Hi I'm Rhayn. This fork is NOT recommended to be used, I am learning to code with my dad. This for is for Hyundai/Kia/Genesis. This is a fork of Sunny Haibin's fork of [comma.ai's openpilot](https://github.com/commaai/openpilot). By installing this software, you accept all responsibility for anything that might occur while you use it. All contributors to this fork are not liable. <ins>**Use at your own risk.**</ins>
 
 🚗 Highlight Features
 ---
 
 ### Driving Enhancement
-* [**Modified Assistive Driving Safety (MADS)**](#modified-assistive-driving-safety-mads) - openpilot Automatic Lane Centering (ALC) and Adaptive Cruise Control (ACC) / Smart Cruise Control (SCC) can be engaged independently of each other
+* [**Modified Assistive Driving (MAD)**](#modified-assistive-driving-mad) - openpilot Automatic Lane Centering (ALC) and Adaptive Cruise Control (ACC) / Smart Cruise Control (SCC) can be engaged independently of each other
 * [**Dynamic Lane Profile (DLP)**](#dynamic-lane-profile-dlp) - Dynamically switch lane profile base on lane recognition confidence
 * [**Enhanced Speed Control**](#enhanced-speed-control) - Utilizes data from vision or OpenStreetMap to achieve dynamic speed control without user's intervention
 * **No Disengage on Gas** - Allow the gas pedal press to not disengage openpilot. This feature is enabled by default.
@@ -41,10 +31,10 @@ This fork is recommended to be used for Hyundai/Kia/Genesis (**HKG**), Honda, To
 * **Auto Lane Change Timer** - Set a timer to delay the auto lane change operation when the blinker is used. No nudge on the steering wheel is required to auto lane change if a timer is set
 * **Force Car Recognition (FCR)** - Use a selector to force your car to be recognized by openpilot
 * **Fix openpilot No Offroad** - Enforce openpilot to go offroad and turns off after shutting down the car. This feature fixes non-official devices running openpilot without comma power
-* **Enable ACC+MADS with RES+/SET-** - Engage both ACC and MADS with a single press of RES+ or SET- button
+* **Enable ACC+MAD with RES+/SET-** - Engage both ACC and MAD with a single press of RES+ or SET- button
 
 ### Visual Enhancement
-* **M.A.D.S Status Icon** - Dedicated icon to display M.A.D.S. engagement status
+* **M.A.D. Status Icon** - Dedicated icon to display M.A.D. engagement status
 * **Lane Color** - Various lane colors to display real-time Lane Model and M.A.D.S. engagemenet status
 * **Developer (Dev) UI** - Display various real-time metrics on screen while driving
   * Click on the "MAX" box on the top left of the openpilot display to toggle different metrics display
@@ -62,20 +52,18 @@ This fork is recommended to be used for Hyundai/Kia/Genesis (**HKG**), Honda, To
 🚗 Driving Enhancement
 ---
 
-### Modified Assistive Driving Safety (MADS)
-The goal of Modified Assistive Driving Safety (MADS) is to enhance the user driving experience with modified behaviors of openpilot engagements. This feature complies with comma.ai's safety rules as accurately as possible with the following changes:
+### Modified Assistive Driving (MAD)
+The goal of Modified Assistive Driving Safety (MAD) is to enhance the user driving experience with modified behaviors of openpilot engagements. This feature complies with comma.ai's safety rules as accurately as possible with the following changes:
 * openpilot Automatic Lane Centering and ACC/SCC can be engaged independently of each other
 * Dedicated button to toggle openpilot ALC:
   * `LFA` button: Newer HKG cars
-  * `LKAS` button: Honda, Toyota
-  * `CRUISE (MAIN)` button: Most HKG cars, Subaru (Global and Pre Global)
 * `SET-` button enables ACC/SCC
 * `CANCEL` button only disables ACC/SCC
 * `CRUISE (MAIN)` must be `ON` to use MADS and ACC/SCC
 * `CRUISE (MAIN)` button disables openpilot completely when `OFF` (strictly enforced in panda safety code)
-* `BRAKE pedal` press will pause openpilot Automatic Lane Centering; `BRAKE pedal` release will resume openpilot Automatic Lane Centering; `BRAKE pedal` release will NOT resume ACC/SCC without an explicit entry
-* `GAS pedal` press will not disengage openpilot Automatic Lane Centering or ACC/SCC
-* `TURN SIGNALS` (`Left` or `Right`) will pause openpilot Automatic Lane Centering if the vehicle speed is below the threshold for openpilot Automatic Lane Change
+* `BRAKE pedal` press NOT will pause openpilot Automatic Lane Centering; `BRAKE pedal` release will NOT resume ACC/SCC without an explicit entry
+* `GAS pedal` press will NOT disengage openpilot Automatic Lane Centering or ACC/SCC
+* `TURN SIGNALS` (`Left` or `Right`) will NOT pause openpilot Automatic Lane Centering if the vehicle speed is below the threshold for openpilot Automatic Lane Change
 * Event audible alerts are more relaxed to match manufacturer's stock behavior
 
 ### Dynamic Lane Profile (DLP)
@@ -128,68 +116,6 @@ Do not look at the dashboard when setting your ACC max speed. Instead, only look
 
 (Courtesy instructions from John, author of jvePilot)
 
-⚒ Branch Definitions
----
-
-* `prod`: Production branches. Include features that are tested by users and ready to use. ✅
-* `staging`: Staging branches. Include new features that are not tested by users. No stability guaranteed. 🚨
-* `feature`: Feature branches. Represent new features being added to the system. No stability guaranteed. 🚨
-* `test`: Test branches. For experimenting with concepts that might not get used in the project. No stability guaranteed. 🚨
-* `develop`: Development branches. All features are gathered in respective versions. Reviewed features will be committed to `develop`. No stability guaranteed. 🚨
-* `full`: Full Feature branches.
-* `personal`: sunnyhaibin's personal branches, on top of Full Feature.
-* `hkg`: Hyundai/Kia/Genesis(HKG)-specific branches. Only for HKG cars.
-* `honda`: Honda-specific branches. Only for Honda cars.
-* `toyota`: Toyota-specific branches. Only for Toyota cars.
-* `subaru`: Subaru-specific branches. Only for Subaru cars.
-
-Example:
-* [`0.8.12-prod-full-honda`](https://github.com/sunnyhaibin/openpilot/tree/0.8.12-prod-full-hkg): 0.8.12-based, Production, Full Feature, Honda branch
-* [`0.8.12-prod-personal-hkg`](https://github.com/sunnyhaibin/openpilot/tree/0.8.12-prod-personal-hkg): 0.8.12-based, Production, sunnyhaibin's personal Full Feature, Hyundai/Kia/Genesis branch
-
-📰 Recommended Branches
----
-* `prod-full-<car_brand>`: Contains all features supported by this fork, such as Modified Assistive Driving Safety (MADS), Dynamic Lane Profile (DLP), etc.
-* `prod-personal-<car_brand>`: sunnyhaibin's everyday use branch, contains changes and good stuff for my personal use and quality-of-life features.
-    * **Hyundai: Sonata N Line 2021**
-
-⚒ Installation
----
-
-### Smiskol URL (Quickest and Easiest)
-To install sunnyhaibin's fork, simply use the Smiskol URL (thanks [Shane](https://github.com/sshane/openpilot-installer-generator)!) on the setup screen for "Custom Software" after you factory reset or uninstalled openpilot from a previous install:
-
-```
-https://smiskol.com/fork/sunnyhaibin/<insert_branch_name>
-```
-For example, if you would like to install the branch for HKG:
-
-* [`0.8.12-prod-full-hkg`](https://github.com/sunnyhaibin/openpilot/tree/0.8.12-prod-full-hkg):
-    ```
-    https://smiskol.com/fork/sunnyhaibin/0.8.12-prod-full-hkg
-    ```
-
-* [`0.8.12-prod-personal-hkg`](https://github.com/sunnyhaibin/openpilot/tree/0.8.12-prod-personal-hkg):
-    ```
-    https://smiskol.com/fork/sunnyhaibin/0.8.12-prod-personal-hkg
-    ```
-
-### SSH (More Versatile)
-If you are looking to install sunnyhaibin's fork via SSH, run the following command in an SSH terminal after connecting to your device:
-
-* [`0.8.12-prod-full-hkg`](https://github.com/sunnyhaibin/openpilot/tree/0.8.12-prod-full-hkg):
-    ```
-    cd /data; rm -rf ./openpilot; git clone -b 0.8.12-prod-full-hkg --depth 1 --single-branch --recurse-submodules --shallow-submodules https://github.com/sunnyhaibin/openpilot.git openpilot; cd openpilot; pkill -f thermald; rm -f prebuilt; reboot; sudo reboot
-    ```
-
-* [`0.8.12-prod-personal-hkg`](https://github.com/sunnyhaibin/openpilot/tree/0.8.12-prod-personal-hkg):
-    ```
-    cd /data; rm -rf ./openpilot; git clone -b 0.8.12-prod-personal-hkg --depth 1 --single-branch --recurse-submodules --shallow-submodules https://github.com/sunnyhaibin/openpilot.git openpilot; cd openpilot; pkill -f thermald; rm -f prebuilt; reboot; sudo reboot
-    ```
-After running the command to install the desired branch, reboot the comma device to ensure to take the change in effect:
-1. C3: `sudo reboot`
-2. C2 or EON: `reboot`
-
 📗 How Tos 📗
 ---
 
@@ -198,27 +124,8 @@ How-To instructions can be found in [HOW-TOS.md](https://github.com/sunnyhaibin/
 💰 Donate 💰
 ---
 
-If you find any of the features useful, feel free to donate to support for future feature development.
+If you find any of the features useful, feel free to donate to Sunny Haibin and the other contributors below for future feature development.
 
-Thank you for your continuous love and support! Enjoy 🥰
-
-**PayPal:**
-
-<a href="https://paypal.me/sunnyhaibin0850" target="_blank">
-<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="PayPal this" title="PayPal - The safer, easier way to pay online!" border="0" />
-</a>
-<br></br>
-
-**PayPal QR Code:**
-
-![sunnyhaibin0850_qrcode_paypal.me.png](sunnyhaibin0850_qrcode_paypal.me.png)
-
-🎆 Pull Requests 🎆
----
-
-We welcome both pull requests and issues on GitHub. Bug fixes are encouraged.
-
-Pull requests should be against the most current `prod-full` branch.
 
 🏆 Special Thanks
 ---
@@ -238,13 +145,16 @@ Pull requests should be against the most current `prod-full` branch.
 * [Move Fast GmbH](https://github.com/move-fast/openpilot)
 * [dragonpilot](https://github.com/dragonpilot-community/dragonpilot)
 * [neokii](https://github.com/neokii/openpilot)
+* [sunnyhaibin](https://github.com/sunnyhaibin/openpilot)
+
+
 
 Licensing
 ------
 
 openpilot is released under the MIT license. Some parts of the software are released under other licenses as specified.
 
-Any user of this software shall indemnify and hold harmless comma.ai, Inc. and its directors, officers, employees, agents, stockholders, affiliates, subcontractors and customers from and against all allegations, claims, actions, suits, demands, damages, liabilities, obligations, losses, settlements, judgments, costs and expenses (including without limitation attorneys’ fees and costs) which arise out of, relate to or result from any use of this software by user.
+Any user of this software shall indemnify and hold me and my family, employees, agents, stockholders, affiliates, subcontractors and customers from and against all allegations, claims, actions, suits, demands, damages, liabilities, obligations, losses, settlements, judgments, costs and expenses (including without limitation attorneys’ fees and costs) which arise out of, relate to or result from any use of this software by user.
 
 **THIS IS ALPHA QUALITY SOFTWARE FOR RESEARCH PURPOSES ONLY. THIS IS NOT A PRODUCT.
 YOU ARE RESPONSIBLE FOR COMPLYING WITH LOCAL LAWS AND REGULATIONS.
