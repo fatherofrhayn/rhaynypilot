@@ -438,7 +438,7 @@ void SettingsWindow::hideEvent(QHideEvent *event) {
 #endif
 }
 
-RhaynypilotPanel::SunnypilotPanel(QWidget* parent) : QWidget(parent) {
+RhaynypilotPanel::RhaynypilotPanel(QWidget* parent) : QWidget(parent) {
   main_layout = new QStackedLayout(this);
   home = new QWidget(this);
   QVBoxLayout* fcr_layout = new QVBoxLayout(home);
