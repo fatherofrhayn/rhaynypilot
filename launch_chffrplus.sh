@@ -197,6 +197,7 @@ function launch {
 
   # start manager
   cd selfdrive/manager
+  chmod +x custom_dep.py build.py manager.py
   ./custom_dep.py && ./build.py && ./manager.py
 
   # if broken, keep on screen error

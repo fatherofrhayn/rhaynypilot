@@ -8,23 +8,24 @@ from selfdrive.swaglog import cloudlog
 from common.params import Params
 
 
-TRAJECTORY_SIZE = 33
-# camera offset is meters from center car to camera
-
 # Get offset from param file
 params = Params()
 CameraOffset = int(params.get("CameraOffset", encoding='utf8'))
 # print("User defined Camera Offset value in CM is:", CameraOffset)
 
+TRAJECTORY_SIZE = 33
+# camera offset is meters from center car to camera
+# model path is in the frame of the camera. Empirically 
+# the model knows the difference between TICI and EON
+# so a path offset is not needed
+PATH_OFFSET = 0.00 + CameraOffset / 100
+
 if EON:
-  CAMERA_OFFSET = 0.06 + CameraOffset / 100
-  PATH_OFFSET = 0.0 + CameraOffset / 100
+  CAMERA_OFFSET = -0.06 + CameraOffset / 100
 elif TICI:
-  CAMERA_OFFSET = -0.04 + CameraOffset / 100
-  PATH_OFFSET = -0.04 + CameraOffset / 100
+  CAMERA_OFFSET = 0.04 + CameraOffset / 100
 else:
   CAMERA_OFFSET = 0.0 + CameraOffset / 100
-  PATH_OFFSET = 0.0 + CameraOffset / 100
 
 
 class LanePlanner:
@@ -56,8 +57,8 @@ class LanePlanner:
       # left and right ll x is the same
       self.ll_x = md.laneLines[1].x
       # only offset left and right lane lines; offsetting path does not make sense
-      self.lll_y = np.array(md.laneLines[1].y) - self.camera_offset
-      self.rll_y = np.array(md.laneLines[2].y) - self.camera_offset
+      self.lll_y = np.array(md.laneLines[1].y) + self.camera_offset
+      self.rll_y = np.array(md.laneLines[2].y) + self.camera_offset
       self.lll_prob = md.laneLineProbs[1]
       self.rll_prob = md.laneLineProbs[2]
       self.lll_std = md.laneLineStds[1]
@@ -70,7 +71,7 @@ class LanePlanner:
   def get_d_path(self, v_ego, path_t, path_xyz):
     # Reduce reliance on lanelines that are too far apart or
     # will be in a few seconds
-    path_xyz[:, 1] -= self.path_offset
+    path_xyz[:, 1] += self.path_offset
     l_prob, r_prob = self.lll_prob, self.rll_prob
     width_pts = self.rll_y - self.lll_y
     prob_mods = []

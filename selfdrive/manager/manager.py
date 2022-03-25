@@ -39,9 +39,9 @@ def manager_init():
     ("ACCMADSCombo", "1"),
     ("AutoLaneChangeTimer", "0"),
     ("BrightnessControl", "0"),
-    ("CameraOffset", "0"),
+    ("CameraOffset", "0"), # Moodkiller
     ("CarModel", ""),
-    ("CompletedTrainingVersion", "0"),
+    ("CompletedTrainingVersion", "0.2.0"), # Moodkiller
     ("DevUI", "2"),
     ("EnableMADS", "1"),
     ("DisableOnroadUploads", "0"),
@@ -51,7 +51,7 @@ def manager_init():
     ("GapAdjustCruiseTr", "4"),
     ("GpxDeleteAfterUpload", "1"),
     ("GpxDeleteIfUploaded", "1"),
-    ("HasAcceptedTerms", "0"),
+    ("HasAcceptedTerms", "2"), # Moodkiller
     ("HandsOnWheelMonitoring", "0"),
     ("LastSpeedLimitSignTap", "0"),
     ("MaxTimeOffroad", "9"),
