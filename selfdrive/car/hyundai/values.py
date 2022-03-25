@@ -14,12 +14,12 @@ class CarControllerParams:
                              CAR.IONIQ_EV_2020, CAR.KIA_CEED, CAR.KIA_SELTOS, CAR.ELANTRA_2021,
                              CAR.ELANTRA_HEV_2021, CAR.SONATA_HYBRID, CAR.KONA_HEV, CAR.SANTA_FE_2022,
                              CAR.KIA_K5_2021, CAR.KONA_EV, CAR.KONA, CAR.IONIQ_HEV_2022, CAR.SANTA_FE_HEV_2022]:
-      self.STEER_MAX = 384
+      self.STEER_MAX = 409
     else:
       self.STEER_MAX = 255
     self.STEER_DELTA_UP = 3
     self.STEER_DELTA_DOWN = 7
-    self.STEER_DRIVER_ALLOWANCE = 50
+    self.STEER_DRIVER_ALLOWANCE = 60
     self.STEER_DRIVER_MULTIPLIER = 2
     self.STEER_DRIVER_FACTOR = 1
 
@@ -1043,7 +1043,7 @@ DBC = {
   CAR.SONATA_HYBRID: dbc_dict('hyundai_kia_generic', 'hyundai_kia_mando_front_radar'),
 }
 
-STEER_THRESHOLD = 150
+STEER_THRESHOLD = 160
 
 def main():
   for member, value in vars(CAR).items():

@@ -512,9 +512,6 @@ class Controls:
     actuators = car.CarControl.Actuators.new_message()
     actuators.longControlState = self.LoC.long_control_state
 
-    if CS.leftBlinker or CS.rightBlinker:
-      self.last_blinker_frame = self.sm.frame
-
     # State specific actions
 
     if not self.active:
@@ -620,7 +617,7 @@ class Controls:
     CC.hudControl.rightLaneVisible = True
     CC.hudControl.leftLaneVisible = True
 
-    recent_blinker = (self.sm.frame - self.last_blinker_frame) * DT_CTRL < 5.0  # 5s blinker cooldown
+    ## recent_blinker = (self.sm.frame - self.last_blinker_frame) * DT_CTRL < 5.0  # 5s blinker cooldown
     ldw_allowed = self.is_ldw_enabled and CS.vEgo > LDW_MIN_SPEED and not recent_blinker \
                     and not self.active and self.sm['liveCalibration'].calStatus == Calibration.CALIBRATED
 
@@ -692,8 +689,7 @@ class Controls:
     controlsState.suspended = (CS.brakePressed and CS.disengageByBrake) or \
                                (self.enabled and (CS.lfaEnabled or CS.accMainEnabled or CS.lkasEnabled) and not
                                (self.active and (not CS.steerWarning) and (not CS.steerError) and
-                               (CS.vEgo > self.CP.minSteerSpeed) and (CS.lfaEnabled or CS.accMainEnabled or CS.lkasEnabled) and
-                               ((not CS.belowLaneChangeSpeed) or ((not (((self.sm.frame - self.last_blinker_frame) * DT_CTRL) < 1.0))))))
+                               (CS.vEgo > self.CP.minSteerSpeed) and (CS.lfaEnabled or CS.accMainEnabled or CS.lkasEnabled)))
     controlsState.distanceTraveled = self.distance_traveled
 
     if self.joystick_mode:
