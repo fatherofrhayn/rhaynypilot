@@ -88,7 +88,7 @@ class CarController():
     # disable when temp fault is active, or below LKA minimum speed
     lkas_active = enabled and not CS.out.steerWarning and CS.out.vEgo >= CS.CP.minSteerSpeed and\
                   (CS.lfaEnabled or CS.accMainEnabled) and ((CS.automaticLaneChange and not CS.belowLaneChangeSpeed) or
-                  ((not ((cur_time - self.signal_last) < 1) or not CS.belowLaneChangeSpeed)n)))
+                  ((not ((cur_time - self.signal_last) < 1) or not CS.belowLaneChangeSpeed)))
 
     if not lkas_active:
       apply_steer = 0
