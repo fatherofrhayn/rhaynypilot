@@ -114,11 +114,11 @@ class CarController:
     self.steer_rate_limited = new_steer != apply_steer
 
     cur_time = self.frame * DT_CTRL
-    if CS.leftBlinkerOn or CS.rightBlinkerOn:
-      self.signal_last = cur_time
+    ##if CS.leftBlinkerOn or CS.rightBlinkerOn:
+    ##  self.signal_last = cur_time
 
     lat_active = CC.latActive and (not CS.belowLaneChangeSpeed or
-                   (not ((cur_time - self.signal_last) < 1.0) and not (CS.leftBlinkerOn or CS.rightBlinkerOn)))
+                   (not ((cur_time - self.signal_last) < 1.0)))
 
     if not lat_active:
       apply_steer = 0
@@ -136,8 +136,8 @@ class CarController:
     below_lane_change_speed = CS.madsEnabled and CS.belowLaneChangeSpeed and\
                               (CS.leftBlinkerOn or CS.rightBlinkerOn)
 
-    if not (disengage_from_brakes or below_lane_change_speed):
-      self.disengage_blink = cur_time
+    ##if not (disengage_from_brakes or below_lane_change_speed):
+    ##  self.disengage_blink = cur_time
 
     disengage_blinking_icon = (disengage_from_brakes or below_lane_change_speed) and not\
                               ((cur_time - self.disengage_blink) > 1)

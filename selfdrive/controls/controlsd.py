@@ -31,7 +31,7 @@ from selfdrive.hardware import HARDWARE, TICI
 from selfdrive.manager.process_config import managed_processes
 
 SOFT_DISABLE_TIME = 3  # seconds
-LDW_MIN_SPEED = 31 * CV.MPH_TO_MS
+LDW_MIN_SPEED = 30 * CV.MPH_TO_MS
 LANE_DEPARTURE_THRESHOLD = 0.1
 
 REPLAY = "REPLAY" in os.environ
@@ -624,8 +624,8 @@ class Controls:
     actuators = CC.actuators
     actuators.longControlState = self.LoC.long_control_state
 
-    if CS.leftBlinker or CS.rightBlinker:
-      self.last_blinker_frame = self.sm.frame
+    ##if CS.leftBlinker or CS.rightBlinker:
+    ##  self.last_blinker_frame = self.sm.frame
 
     # State specific actions
 
@@ -724,7 +724,7 @@ class Controls:
     hudControl.rightLaneVisible = True
     hudControl.leftLaneVisible = True
 
-    recent_blinker = (self.sm.frame - self.last_blinker_frame) * DT_CTRL < 5.0  # 5s blinker cooldown
+    ##recent_blinker = (self.sm.frame - self.last_blinker_frame) * DT_CTRL < 5.0  # 5s blinker cooldown
     ldw_allowed = self.is_ldw_enabled and CS.vEgo > LDW_MIN_SPEED and not recent_blinker \
                     and not CC.latActive and self.sm['liveCalibration'].calStatus == Calibration.CALIBRATED
 
