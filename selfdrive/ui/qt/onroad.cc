@@ -1058,34 +1058,20 @@ void NvgWindow::updateFrameMat(int w, int h) {
       .translate(-intrinsic_matrix.v[2], -intrinsic_matrix.v[5]);
 }
 
-// shane's colored lane line
-void NvgWindow::drawLaneLines(QPainter &painter, const UIScene &scene) {
-  UIState *s = &QUIState::ui_state;
-  int steerOverride = (*s->sm)["carState"].getCarState().getSteeringPressed();
-  bool madsEnabled = (*s->sm)["controlsState"].getControlsState().getMadsEnabled();
-  bool suspended = (*s->sm)["controlsState"].getControlsState().getSuspended();
-  if (!scene.lateralPlan.dynamicLaneProfileStatus) {
-    // lanelines
-    for (int i = 0; i < std::size(scene.lane_line_vertices); ++i) {
-      if (i == 1 || i == 2) {
-        // TODO: can we just use the projected vertices somehow?
-        const cereal::ModelDataV2::XYZTData::Reader &line = (*s->sm)["modelV2"].getModelV2().getLaneLines()[i];
-        const float default_pos = 1.4;  // when lane poly isn't available
-        const float lane_pos = line.getY().size() > 0 ? std::abs(line.getY()[5]) : default_pos;  // get redder when line is closer to car
-        float hue = 332.5 * lane_pos - 332.5;  // equivalent to {1.4, 1.0}: {133, 0} (green to red)
-        hue = std::fmin(133, fmax(0, hue)) / 360.;  // clip and normalize
-        painter.setBrush(QColor::fromHslF(hue, 1.0, 0.50, scene.lane_line_probs[i]));
-      } else {
-        painter.setBrush(QColor::fromRgbF(1.0, 1.0, 1.0, scene.lane_line_probs[i]));
-      }
-      painter.drawPolygon(scene.lane_line_vertices[i].v, scene.lane_line_vertices[i].cnt);
-    }
-    // road edges
-    for (int i = 0; i < std::size(scene.road_edge_vertices); ++i) {
-      painter.setBrush(QColor::fromRgbF(1.0, 0, 0, std::clamp<float>(1.0 - scene.road_edge_stds[i], 0.0, 1.0)));
-      painter.drawPolygon(scene.road_edge_vertices[i].v, scene.road_edge_vertices[i].cnt);
-    }
+void NvgWindow::drawLaneLines(QPainter &painter, const UIState *s) {
+  const UIScene &scene = s->scene;
+  // lanelines
+  for (int i = 0; i < std::size(scene.lane_line_vertices); ++i) {
+    painter.setBrush(QColor::fromRgbF(1.0, 1.0, 1.0, std::clamp<float>(scene.lane_line_probs[i], 0.0, 0.7)));
+    painter.drawPolygon(scene.lane_line_vertices[i].v, scene.lane_line_vertices[i].cnt);
   }
+
+  // road edges
+  for (int i = 0; i < std::size(scene.road_edge_vertices); ++i) {
+    painter.setBrush(QColor::fromRgbF(1.0, 0, 0, std::clamp<float>(1.0 - scene.road_edge_stds[i], 0.0, 1.0)));
+    painter.drawPolygon(scene.road_edge_vertices[i].v, scene.road_edge_vertices[i].cnt);
+  }
+
   // paint path
   QLinearGradient bg(0, height(), 0, height() / 4);
   if (madsEnabled) {
@@ -1148,7 +1134,7 @@ void NvgWindow::paintGL() {
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::NoPen);
 
-    drawLaneLines(painter, s->scene);
+    drawLaneLines(painter, s);
 
     if (s->scene.longitudinal_control) {
       auto leads = (*s->sm)["modelV2"].getModelV2().getLeadsV3();
